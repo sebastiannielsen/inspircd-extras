@@ -45,7 +45,7 @@ public:
 
         Version GetVersion()
         {
-                return Version("Adds a opertype option to connect blocks so operators can get autologged in via IP", VF_OPTCOMMON);
+                return Version("Adds a opertype option to connect blocks so operators can get autologged in via IP");
         }
 };
 
