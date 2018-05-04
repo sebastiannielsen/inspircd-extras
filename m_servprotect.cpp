@@ -39,7 +39,7 @@ class ModuleServProtect : public Module {
                         ConfigTag* qtag = dst->oper->type_block;
                         if (qtag->getString("immunity") == "yes")
                         {
-                                ServerInstance->SendWhoisLine(src, dst, 310, src->nick+" "+dst->nick+" :is an "+ServerInstance->Config->Network+" Super IRCO$
+                                ServerInstance->SendWhoisLine(src, dst, 310, src->nick+" "+dst->nick+" :is an "+ServerInstance->Config->Network+" Super IRCOP");
                         }
                 }
         }
@@ -50,13 +50,11 @@ class ModuleServProtect : public Module {
                         User *u = ServerInstance->FindNick(param);
                         if (u)
                         {
-                                if (IS_OPER(u))
-                                {
-                                        Membership* memb = chan->GetUser(u);
-                                        ConfigTag* utag = u->oper->type_block;
+                                Membership* memb = chan->GetUser(u);
+                                ConfigTag* utag = u->oper->type_block;
                                         if (utag->getString("immunity") == "yes" && memb && memb->modes.find(mode) != std::string::npos && u != user)
-                                        {
-                                                user->WriteNumeric(482, "%s %s :You are not permitted to remove privileges from %s Super IRCOPs", user->nick$
+                                        {                                       {
+                                                user->WriteNumeric(482, "%s %s :You are not permitted to remove privileges from %s Super IRCOPs", user->nick.c_str(), chan->name.c_str(), ServerInstance->Config->Network.c_str());
                                                 return MOD_RES_DENY;
                                         }
                                 }
@@ -71,8 +69,7 @@ class ModuleServProtect : public Module {
                         ConfigTag* mtag = memb->user->oper->type_block;
                         if (mtag->getString("immunity") == "yes")
                         {
-                                src->WriteNumeric(484, "%s %s :You are not permitted to kick Super IRCOPs",
-                                        src->nick.c_str(), memb->chan->name.c_str());
+                                src->WriteNumeric(484, "%s %s :You are not permitted to kick Super IRCOPs",src->nick.c_str(), memb->chan->name.c_str());
                                 return MOD_RES_DENY;
                         }
                 }
