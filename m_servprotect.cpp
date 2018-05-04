@@ -52,11 +52,10 @@ class ModuleServProtect : public Module {
                         {
                                 Membership* memb = chan->GetUser(u);
                                 ConfigTag* utag = u->oper->type_block;
-                                        if (utag->getString("immunity") == "yes" && memb && memb->modes.find(mode) != std::string::npos && u != user)
-                                        {                                       {
-                                                user->WriteNumeric(482, "%s %s :You are not permitted to remove privileges from %s Super IRCOPs", user->nick.c_str(), chan->name.c_str(), ServerInstance->Config->Network.c_str());
-                                                return MOD_RES_DENY;
-                                        }
+                                if (utag->getString("immunity") == "yes" && memb && memb->modes.find(mode) != std::string::npos && u != user)
+                                {
+                                        user->WriteNumeric(482, "%s %s :You are not permitted to remove privileges from %s Super IRCOPs", user->nick.c_str(), chan->name.c_str(), ServerInstance->Config->Network.c_str());
+                                        return MOD_RES_DENY;
                                 }
                         }
                 }
