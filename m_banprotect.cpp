@@ -1,3 +1,4 @@
+
 /*
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -24,7 +25,8 @@ class Banprotector
 	void addrank(const char& modeparam, const std::string& banparam, const unsigned int& rank)
 	{
 		std::string fullban = ConvToStr(modeparam) + "%" + ConvToStr(banparam);
-		banrank[fullban] = rank;
+		if (!banrank[fullban])
+			banrank[fullban] = rank;
 	}
 
 	bool checkrank(const char& modeparam, const std::string& banparam, const unsigned int& rank)
